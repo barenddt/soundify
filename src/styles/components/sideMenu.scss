@@ -1,0 +1,42 @@
+.sidemenu {
+  width: 250px;
+  background-color: #0c0a0d;
+  padding-top: 50px;
+  height: 100%;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  @media only screen and (max-width: 800px) {
+    width: 75px;
+  }
+  .active {
+    border-left: solid #fd5765 5px;
+    color: white;
+    @media only screen and (max-width: 800px) {
+      border-left: solid #fd5765 5px;
+      color: white;
+    }
+  }
+  > ul {
+    list-style: none;
+    > li {
+      justify-content: center;
+      padding: 15px;
+      padding-left: 35px;
+      @media only screen and (max-width: 800px) {
+        padding-left: 25px;
+      }
+      font-size: 1rem;
+      font-weight: 400;
+      color: lightgrey;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      &:hover {
+        color: white;
+      }
+    }
+  }
+}
+
+.icon {
+  font-size: 1.2rem;
+  margin-right: 20px;
+}
