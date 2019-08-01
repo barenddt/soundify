@@ -29,16 +29,13 @@ export class Player extends Component {
         let tracks = this.props.browse.tracks;
         let next;
         if (this.props.player.repeat) {
-          console.log("Repeat");
           this.props.playTrack(this.props.player.currentlyPlaying);
         } else {
           if (!this.props.player.shuffle) {
             next = tracks.indexOf(this.props.player.currentlyPlaying) + 1;
-            this.props.playTrack(this.props.browse.tracks[next]);
+            this.props.playTrack(tracks[next]);
           } else {
-            next = this.props.browse.tracks[
-              Math.floor(Math.random() * this.props.browse.tracks.length)
-            ];
+            next = tracks[Math.floor(Math.random() * tracks.length)];
             this.props.playTrack(next);
           }
         }
@@ -71,8 +68,14 @@ export class Player extends Component {
 
   playNext() {
     let tracks = this.props.browse.tracks;
-    let next = tracks.indexOf(this.props.player.currentlyPlaying) + 1;
-    this.props.playTrack(this.props.browse.tracks[next]);
+    let next;
+    if (!this.props.player.shuffle) {
+      next = tracks.indexOf(this.props.player.currentlyPlaying) + 1;
+      this.props.playTrack(tracks[next]);
+    } else {
+      next = tracks[Math.floor(Math.random() * tracks.length)];
+      this.props.playTrack(next);
+    }
   }
 
   render() {
