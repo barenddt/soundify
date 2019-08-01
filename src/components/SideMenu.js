@@ -29,6 +29,11 @@ export class SideMenu extends Component {
   render() {
     return (
       <div className="sidemenu shadow-dark">
+        <div className="logo-box">
+          <i className="logo fas fa-music" />
+          <span className="logo-box-text">Soundify</span>
+        </div>
+
         <ul>{this.makeMenu()}</ul>
       </div>
     );

@@ -48,10 +48,8 @@ export class Home extends Component {
               this.props.player.currentlyPlaying &&
               this.props.player.currentlyPlaying.id == track.id
             ) {
-              console.log("PlayPause");
               this.props.playPause(this.props.player.isPlaying);
             } else {
-              console.log("Play");
               this.props.playTrack(track);
             }
           }}

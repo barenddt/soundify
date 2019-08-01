@@ -41,7 +41,6 @@ export default function(state = initialState, action) {
 }
 
 export const playTrack = track => dispatch => {
-  console.log(track);
   dispatch({
     type: CHANGE_STATE,
     payload: {
@@ -64,15 +63,15 @@ export const playTrack = track => dispatch => {
           currentlyPlaying: track
         }
       });
+      dispatch({
+        type: CHANGE_STATE,
+        payload: {
+          isPlaying: true,
+          playNext: false
+        }
+      });
     });
   }
-  dispatch({
-    type: CHANGE_STATE,
-    payload: {
-      isPlaying: true,
-      playNext: false
-    }
-  });
 
   const ticker = setInterval(() => {
     if (musicPlayer && musicPlayer.isPlaying()) {
@@ -97,12 +96,15 @@ export const playTrack = track => dispatch => {
 };
 
 const setMediaMeta = track => {
+  document.title = `${track.title} - Soundify`;
   navigator.mediaSession.metadata = new MediaMetadata({
     title: track.title,
     artist: track.user.username,
     artwork: [
       {
-        src: track.artwork_url.replace("large", "t300x300"),
+        src: track.artwork_url
+          ? track.artwork_url.replace("large", "t300x300")
+          : "https://i.postimg.cc/ZnG61QfD/default-track.png",
         sizes: "300x300",
         type: "image/png"
       }

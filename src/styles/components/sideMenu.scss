@@ -1,7 +1,6 @@
 .sidemenu {
   width: 250px;
   background-color: #0c0a0d;
-  padding-top: 50px;
   height: 100%;
   transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   @media only screen and (max-width: 800px) {
@@ -34,6 +33,34 @@
       }
     }
   }
+}
+
+.logo-box {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  justify-content: left;
+  align-items: center;
+  color: white;
+  padding: 15px;
+  padding-left: 35px;
+  font-size: 1.2rem;
+  @media only screen and (max-width: 800px) {
+    display: none;
+  }
+}
+
+.logo-box-text {
+  font-size: 1.3rem;
+  @media only screen and (max-width: 800px) {
+    display: none;
+  }
+}
+
+.logo {
+  font-size: 1.3rem;
+  margin-right: 20px;
+  color: #fd5765;
 }
 
 .icon {
