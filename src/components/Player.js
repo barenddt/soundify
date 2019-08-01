@@ -15,7 +15,10 @@ export class Player extends Component {
 
     this.state = {
       isSeeking: false,
-      value: 0
+      value: 0,
+      trackPos: 0,
+      tip: "none",
+      timestamp: 0
     };
   }
 
@@ -68,6 +71,24 @@ export class Player extends Component {
         <div
           id="p-box"
           className="player-progress-box"
+          onMouseMove={e => {
+            let pos = e.nativeEvent.offsetX;
+            let width = $("#p-box").width();
+            let newPos = (pos / width) * 100;
+            let time = (
+              ((pos / width) * this.props.player.playerState.getDuration()) /
+              1000
+            ).toFixed(0);
+            $("#tooltip").offset({ left: e.pageX - $("#tooltip").width() / 2 });
+            this.setState({
+              trackPos: newPos,
+              tip: "block",
+              timestamp: this.makeTime(time)
+            });
+          }}
+          onMouseLeave={e => {
+            this.setState({ trackPos: 0, tip: "none" });
+          }}
           onClick={e => {
             let pos = e.nativeEvent.offsetX;
             let width = $("#p-box").width();
@@ -76,6 +97,19 @@ export class Player extends Component {
             );
           }}
         >
+          <div
+            style={{ display: this.state.tip }}
+            id="tooltip"
+            className="player-tooltip"
+          >
+            {this.state.timestamp}
+          </div>
+          <div
+            className="player-progress-hover"
+            style={{
+              width: this.state.trackPos + "%"
+            }}
+          />
           <div
             className="player-progress"
             style={{
