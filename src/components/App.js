@@ -12,6 +12,14 @@ export class App extends Component {
     SC.initialize({
       client_id: "9aB60VZycIERY07OUTVBL5GeErnTA0E4"
     });
+
+    SC.get("/tracks", {
+      kind: "top",
+      genre: "all-music",
+      region: "CA"
+    }).then(function(tracks) {
+      console.log(tracks);
+    });
   }
 
   render() {

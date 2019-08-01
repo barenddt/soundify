@@ -83,7 +83,6 @@ export const playTrack = track => dispatch => {
       });
     }
     if (musicPlayer && musicPlayer.isEnded()) {
-      clearInterval(ticker);
       dispatch({
         type: CHANGE_STATE,
         payload: {
@@ -92,7 +91,7 @@ export const playTrack = track => dispatch => {
         }
       });
     }
-  }, 500);
+  }, 100);
 };
 
 const setMediaMeta = track => {

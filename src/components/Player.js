@@ -65,106 +65,90 @@ export class Player extends Component {
 
     return (
       <div className={playerClass}>
-        {this.props.player.currentlyPlaying ? (
-          <div className="player-item-info">
-            <img
-              className="artwork"
-              src={
-                this.props.player.currentlyPlaying.artwork_url
-                  ? this.props.player.currentlyPlaying.artwork_url
-                  : "https://i.postimg.cc/ZnG61QfD/default-track.png"
-              }
-            />
-            <div className="meta-data">
-              {this.props.player.currentlyPlaying.title}
-              <small className="artist">
-                {this.props.player.currentlyPlaying.user.username.toUpperCase()}
-              </small>
-            </div>
-          </div>
-        ) : null}
+        <div
+          id="p-box"
+          className="player-progress-box"
+          onClick={e => {
+            let pos = e.nativeEvent.offsetX;
+            let width = $("#p-box").width();
+            this.props.seekPlayer(
+              (pos / width) * this.props.player.playerState.getDuration()
+            );
+          }}
+        >
+          <div
+            className="player-progress"
+            style={{
+              width: this.props.player.playerState
+                ? (this.props.player.playerState.currentTime() /
+                    this.props.player.playerState.getDuration()) *
+                    100 +
+                  "%"
+                : 0 + "%"
+            }}
+          />
+        </div>
 
-        <div className="player-item-buttons">
-          <i
-            onClick={() => this.props.seekPlayer(0)}
-            className="p-icon-sm fas fa-step-backward"
-          />
-          <i
-            onClick={() => this.props.playPause(this.props.player.isPlaying)}
-            className={`p-icon ${
-              this.props.player.isPlaying
-                ? "fas fa-pause-circle"
-                : "fas fa-play-circle"
-            }`}
-          />
-          <i
-            onClick={() => this.playNext()}
-            className="p-icon-sm fas fa-step-forward"
-          />
-          <ReactSlider
-            className="p-slider"
-            min={0}
-            max={
-              this.props.player.playerState
-                ? this.props.player.playerState.getDuration()
-                : 100
-            }
-            value={
-              this.props.player.playerState
-                ? this.state.isSeeking
-                  ? this.state.value
-                  : this.props.player.playerState.currentTime()
-                : 0
-            }
-            defaultValue={0}
-            onBeforeChange={() =>
-              this.setState({
-                isSeeking: true,
-                value: this.props.player.playerState.currentTime()
-              })
-            }
-            onChange={e => this.setState({ value: e })}
-            onAfterChange={e => this.seekDone(e)}
-          >
-            <div className="p-thumb" />
-          </ReactSlider>
-          <p className="p-time">
-            {this.props.player.playerState
-              ? this.makeTime(
-                  (this.props.player.playerState.currentTime() / 1000).toFixed(
-                    0
-                  )
-                )
-              : "0:00"}
-            /
-            {this.props.player.playerState
-              ? this.makeTime(
-                  (this.props.player.playerState.getDuration() / 1000).toFixed(
-                    0
-                  )
-                )
-              : "0:00"}
-          </p>
-        </div>
-        <div className="player-item-volume">
-          <div onClick={() => this.props.adjustVolume(0)}>
-            {this.makeVolIcon()}
+        <div className="player-box">
+          {this.props.player.currentlyPlaying ? (
+            <div className="player-item-info">
+              <img
+                className="artwork"
+                src={
+                  this.props.player.currentlyPlaying.artwork_url
+                    ? this.props.player.currentlyPlaying.artwork_url
+                    : "https://i.postimg.cc/ZnG61QfD/default-track.png"
+                }
+              />
+              <div className="meta-data">
+                {this.props.player.currentlyPlaying.title}
+                <small className="artist">
+                  {this.props.player.currentlyPlaying.user.username.toUpperCase()}
+                </small>
+              </div>
+            </div>
+          ) : null}
+
+          <div className="player-item-buttons">
+            <i class="p-icon-xs fas fa-redo-alt" />
+            <i
+              onClick={() => this.props.seekPlayer(0)}
+              className="p-icon-sm fas fa-step-backward"
+            />
+            <i
+              onClick={() => this.props.playPause(this.props.player.isPlaying)}
+              className={`p-icon ${
+                this.props.player.isPlaying
+                  ? "fas fa-pause-circle"
+                  : "fas fa-play-circle"
+              }`}
+            />
+            <i
+              onClick={() => this.playNext()}
+              className="p-icon-sm fas fa-step-forward"
+            />
+            <i class="p-icon-xs fas fa-random" />
           </div>
-          <ReactSlider
-            className="v-slider"
-            min={0}
-            max={100}
-            defaultValue={0}
-            value={this.props.player.volume}
-            onChange={e => this.props.adjustVolume(e)}
-          >
-            <div className="p-thumb" />
-          </ReactSlider>
+          <div className="player-item-volume">
+            <div onClick={() => this.props.adjustVolume(0)}>
+              {this.makeVolIcon()}
+            </div>
+            <ReactSlider
+              className="v-slider"
+              min={0}
+              max={100}
+              defaultValue={0}
+              value={this.props.player.volume}
+              onChange={e => this.props.adjustVolume(e)}
+            >
+              <div className="p-thumb" />
+            </ReactSlider>
+          </div>
+          <KeyboardEventHandler
+            handleKeys={["space", "left", "right", "m"]}
+            onKeyEvent={key => this.handleKeyEvent(key)}
+          />
         </div>
-        <KeyboardEventHandler
-          handleKeys={["space", "left", "right", "m"]}
-          onKeyEvent={key => this.handleKeyEvent(key)}
-        />
       </div>
     );
   }
