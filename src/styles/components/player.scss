@@ -10,6 +10,7 @@
   color: white;
   background-color: lighten(#0c0a0d, 5%);
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  backface-visibility: hidden;
   @media only screen and (max-width: 800px) {
     grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
   }

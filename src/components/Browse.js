@@ -3,6 +3,7 @@ import { DebounceInput } from "react-debounce-input";
 import { connect } from "react-redux";
 import { searchTracks, getMore } from "../reducers/browseReducer";
 import { playTrack, playPause } from "../reducers/playerReducer";
+import truncate from "truncate";
 
 export class Home extends Component {
   constructor(props) {
@@ -82,17 +83,43 @@ export class Home extends Component {
       ) {
         return (
           <div className="s-inline-player s-active">
+            <div className="s-inline-title" style={{ padding: "10px" }}>
+              {truncate(track.title, 35)}
+            </div>
             <i
               class={`s-icon fas fa-${
                 this.props.player.isPlaying ? "pause" : "play"
               }-circle`}
             />
+            <div className="s-inline-meta" style={{ padding: "10px" }}>
+              <div>
+                <i class="s-inline-icon fas fa-heart" />
+                {this._shorten(track.likes_count)}
+              </div>
+              <div>
+                <i class="s-inline-icon fas fa-redo-alt" />
+                {this._shorten(track.reposts_count)}
+              </div>
+            </div>
           </div>
         );
       } else {
         return (
           <div className="s-inline-player">
+            <div className="s-inline-title" style={{ padding: "10px" }}>
+              {truncate(track.title, 35)}
+            </div>
             <i class="s-icon fas fa-play-circle" />
+            <div className="s-inline-meta" style={{ padding: "10px" }}>
+              <div>
+                <i class="s-inline-icon fas fa-heart" />
+                {this._shorten(track.likes_count)}
+              </div>
+              <div>
+                <i class="s-inline-icon fas fa-redo-alt" />
+                {this._shorten(track.reposts_count)}
+              </div>
+            </div>
           </div>
         );
       }
@@ -103,11 +130,24 @@ export class Home extends Component {
       ) {
         return (
           <div className="s-inline-player s-active">
+            <div className="s-inline-title" style={{ padding: "10px" }}>
+              {truncate(track.title, 35)}
+            </div>
             <i
               class={`s-icon fas fa-${
                 this.props.player.isPlaying ? "pause" : "play"
               }-circle`}
             />
+            <div className="s-inline-meta" style={{ padding: "10px" }}>
+              <div>
+                <i class="s-inline-icon fas fa-heart" />
+                {this._shorten(track.likes_count)}
+              </div>
+              <div>
+                <i class="s-inline-icon fas fa-redo-alt" />
+                {this._shorten(track.reposts_count)}
+              </div>
+            </div>
           </div>
         );
       } else {
@@ -118,6 +158,18 @@ export class Home extends Component {
         );
       }
     }
+  }
+
+  _shorten(num) {
+    let newNum;
+    if (num > 1000000) {
+      newNum = (Math.ceil(num) / 1000000).toFixed(1) + "m";
+    } else if (num > 1000) {
+      newNum = (Math.ceil(num) / 1000).toFixed(1) + "k";
+    } else {
+      newNum = num;
+    }
+    return newNum;
   }
 
   render() {

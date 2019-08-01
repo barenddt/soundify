@@ -41,6 +41,7 @@ export default function(state = initialState, action) {
 }
 
 export const playTrack = track => dispatch => {
+  console.log(track);
   dispatch({
     type: CHANGE_STATE,
     payload: {

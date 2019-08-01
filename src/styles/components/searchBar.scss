@@ -83,7 +83,7 @@
   justify-content: flex-end;
   color: white;
   font-size: 0.9rem;
-  text-shadow: 0px 1px 15px #000000;
+  text-shadow: 0px 1px 5px #000000;
   background-color: #0c0a0d3a;
   backface-visibility: hidden;
   transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -103,6 +103,33 @@
   background-color: #0c0a0d00;
   &:hover {
     background-color: #0c0a0d5b;
+  }
+}
+
+.s-inline-title {
+  position: absolute;
+  top: 0;
+  font-size: 0.9rem;
+  animation: inDownFade 0.2s;
+  text-align: center;
+  .s-inline-icon {
+    color: #fd5765;
+    margin-right: 5px;
+  }
+}
+
+.s-inline-meta {
+  position: absolute;
+  bottom: 0;
+  font-size: 0.9rem;
+  animation: inUpFade 0.2s;
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  grid-template-columns: auto auto;
+  .s-inline-icon {
+    color: #fd5765;
+    margin-right: 5px;
   }
 }
 
@@ -130,6 +157,15 @@
 @keyframes inUpFade {
   0% {
     transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes inDownFade {
+  0% {
+    transform: translateY(-100%);
   }
   100% {
     transform: translateY(0%);
