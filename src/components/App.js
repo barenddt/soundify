@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../reducers/store";
-import SideMenu from "./SideMenu";
-import Browse from "./Browse";
-import Player from "./Player";
+import SideMenuContainer from "../containers/SideMenuContainer";
+import PlayerContainer from "../containers/PlayerContainer";
+import BrowseContainer from "../containers/BrowseContainer";
 import "../styles/app.scss";
 
 export class App extends Component {
@@ -26,13 +26,13 @@ export class App extends Component {
     return (
       <ConnectedRouter history={history}>
         <div className="main-container">
-          <SideMenu />
+          <SideMenuContainer />
           <div className="main-content">
             <Switch>
-              <Route exact path="/" component={Browse} />
-              <Route exact path="/browse" component={Browse} />
+              <Route exact path="/" component={BrowseContainer} />
+              <Route exact path="/browse" component={BrowseContainer} />
             </Switch>
-            <Player />
+            <PlayerContainer />
           </div>
         </div>
       </ConnectedRouter>

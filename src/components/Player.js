@@ -1,12 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import {
-  playPause,
-  seekPlayer,
-  adjustVolume,
-  playTrack,
-  toggle
-} from "../reducers/playerReducer";
 import ReactSlider from "react-slider";
 import KeyboardEventHandler from "react-keyboard-event-handler";
 
@@ -267,20 +259,4 @@ export class Player extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  player: state.player,
-  browse: state.browse
-});
-
-const mapDispatchToProps = dispatch => ({
-  playPause: e => dispatch(playPause(e)),
-  playTrack: e => dispatch(playTrack(e)),
-  seekPlayer: to => dispatch(seekPlayer(to)),
-  adjustVolume: to => dispatch(adjustVolume(to)),
-  toggle: name => dispatch(toggle(name))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Player);
+export default Player;

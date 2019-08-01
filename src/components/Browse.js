@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import { DebounceInput } from "react-debounce-input";
-import { connect } from "react-redux";
-import { searchTracks, getMore } from "../reducers/browseReducer";
-import { playTrack, playPause } from "../reducers/playerReducer";
 import truncate from "truncate";
 
-export class Home extends Component {
+export class Browse extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -187,19 +184,4 @@ export class Home extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  player: state.player,
-  browse: state.browse
-});
-
-const mapDispatchToProps = dispatch => ({
-  searchTracks: e => dispatch(searchTracks(e)),
-  playTrack: e => dispatch(playTrack(e)),
-  getMore: e => dispatch(getMore(e)),
-  playPause: e => dispatch(playPause(e))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default Browse;

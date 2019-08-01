@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { changeMenu } from "../reducers/menuReducer";
 import Media from "react-media";
 
 export class SideMenu extends Component {
@@ -40,15 +38,4 @@ export class SideMenu extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  menu: state.menu
-});
-
-const mapDispatchToProps = dispatch => ({
-  changeMenu: active => dispatch(changeMenu(active))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SideMenu);
+export default SideMenu;
