@@ -4,7 +4,8 @@ import {
   playPause,
   seekPlayer,
   adjustVolume,
-  playTrack
+  playTrack,
+  toggle
 } from "../reducers/playerReducer";
 import ReactSlider from "react-slider";
 import KeyboardEventHandler from "react-keyboard-event-handler";
@@ -26,8 +27,21 @@ export class Player extends Component {
     setInterval(() => {
       if (this.props.player.playNext) {
         let tracks = this.props.browse.tracks;
-        let next = tracks.indexOf(this.props.player.currentlyPlaying) + 1;
-        this.props.playTrack(this.props.browse.tracks[next]);
+        let next;
+        if (this.props.player.repeat) {
+          console.log("Repeat");
+          this.props.playTrack(this.props.player.currentlyPlaying);
+        } else {
+          if (!this.props.player.shuffle) {
+            next = tracks.indexOf(this.props.player.currentlyPlaying) + 1;
+            this.props.playTrack(this.props.browse.tracks[next]);
+          } else {
+            next = this.props.browse.tracks[
+              Math.floor(Math.random() * this.props.browse.tracks.length)
+            ];
+            this.props.playTrack(next);
+          }
+        }
       }
     }, 1000);
     navigator.mediaSession.setActionHandler("play", () =>
@@ -144,7 +158,12 @@ export class Player extends Component {
           ) : null}
 
           <div className="player-item-buttons">
-            <i class="p-icon-xs fas fa-redo-alt" />
+            <i
+              onClick={() => this.props.toggle("repeat")}
+              className={`p-icon-xs${
+                this.props.player.repeat ? "-active" : ""
+              } fas fa-redo-alt`}
+            />
             <i
               onClick={() => this.props.seekPlayer(0)}
               className="p-icon-sm fas fa-step-backward"
@@ -161,7 +180,12 @@ export class Player extends Component {
               onClick={() => this.playNext()}
               className="p-icon-sm fas fa-step-forward"
             />
-            <i class="p-icon-xs fas fa-random" />
+            <i
+              onClick={() => this.props.toggle("shuffle")}
+              className={`p-icon-xs${
+                this.props.player.shuffle ? "-active" : ""
+              } fas fa-random`}
+            />
           </div>
           <div className="player-item-volume">
             <div onClick={() => this.props.adjustVolume(0)}>
@@ -249,7 +273,8 @@ const mapDispatchToProps = dispatch => ({
   playPause: e => dispatch(playPause(e)),
   playTrack: e => dispatch(playTrack(e)),
   seekPlayer: to => dispatch(seekPlayer(to)),
-  adjustVolume: to => dispatch(adjustVolume(to))
+  adjustVolume: to => dispatch(adjustVolume(to)),
+  toggle: name => dispatch(toggle(name))
 });
 
 export default connect(

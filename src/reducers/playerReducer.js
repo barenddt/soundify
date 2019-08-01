@@ -3,7 +3,8 @@ import {
   UPDATE_PLAYER,
   ADJUST_VOLUME,
   CHANGE_CURRENT,
-  PLAY_PAUSE
+  PLAY_PAUSE,
+  TOGGLE
 } from "./types";
 import { store } from "../reducers/store";
 
@@ -14,7 +15,15 @@ const initialState = {
   playerState: null,
   currentlyPlaying: null,
   playNext: false,
-  volume: localStorage.getItem("sc-vol") ? localStorage.getItem("sc-vol") : 50
+  volume: localStorage.getItem("sc-vol") ? localStorage.getItem("sc-vol") : 50,
+  repeat:
+    localStorage.getItem("sc-repeat") == "true"
+      ? localStorage.getItem("sc-repeat")
+      : false,
+  shuffle:
+    localStorage.getItem("sc-shuffle") == "true"
+      ? localStorage.getItem("sc-shuffle")
+      : false
 };
 
 export default function(state = initialState, action) {
@@ -35,6 +44,9 @@ export default function(state = initialState, action) {
     case PLAY_PAUSE:
       state.isPlaying = !state.isPlaying;
       return { ...state };
+    case TOGGLE:
+      state[action.payload.name] = !state[action.payload.name];
+      return { ...state };
     default:
       return { ...state };
   }
@@ -49,8 +61,9 @@ export const playTrack = track => dispatch => {
     }
   });
   if (
-    musicPlayer == null ||
-    track.id != store.getState().player.currentlyPlaying.id
+    !musicPlayer ||
+    track.id != store.getState().player.currentlyPlaying.id ||
+    store.getState().player.repeat
   ) {
     SC.stream(`/tracks/${track.id}`).then(stream => {
       musicPlayer = stream;
@@ -146,6 +159,16 @@ export const adjustVolume = to => dispatch => {
     type: ADJUST_VOLUME,
     payload: {
       volume: to
+    }
+  });
+};
+
+export const toggle = name => dispatch => {
+  localStorage.setItem(`sc-${name}`, !store.getState().player[name]);
+  dispatch({
+    type: TOGGLE,
+    payload: {
+      name
     }
   });
 };

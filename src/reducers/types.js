@@ -7,6 +7,7 @@ export const UPDATE_PLAYER = "UPDATE_PLAYER";
 export const ADJUST_VOLUME = "ADJUST_VOLUME";
 export const CHANGE_CURRENT = "CHANGE_CURRENT";
 export const PLAY_PAUSE = "PLAY_PAUSE";
+export const TOGGLE = "TOGGLE";
 
 //Browse
 export const SEARCH_TRACKS = "SEARCH_TRACKS";

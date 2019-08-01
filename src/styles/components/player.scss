@@ -1,7 +1,7 @@
 .player-progress-box {
   width: 100%;
   background-color: #0c0a0d;
-  height: 5px;
+  height: 8px;
   cursor: pointer;
   transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   backface-visibility: hidden;
@@ -57,8 +57,8 @@
   z-index: 10;
   padding: 10px;
   background-color: #fe5863;
-  border-radius: 100px;
   font-size: 0.8rem;
+  border-radius: 100px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   animation: tooltipIn 0.8s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
@@ -87,7 +87,6 @@
       transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       &:hover {
         color: #fe5863;
-        transform: scale(1.1, 1.1);
       }
     }
     &-xs {
@@ -98,12 +97,21 @@
       transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       &:hover {
         color: #fe5863;
-        transform: scale(1.1, 1.1);
+      }
+      &-active {
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        font-size: 1.2rem;
+        color: white;
+        margin-right: 15px;
+        cursor: pointer;
+        color: #fe5863;
+        &:hover {
+          color: #fe5863;
+        }
       }
     }
     &:hover {
       color: #fe5863;
-      transform: scale(1.1, 1.1);
     }
   }
 
@@ -175,12 +183,12 @@
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     &:hover {
       color: #fe5863;
-      transform: scale(1.1, 1.1);
+      transform: scale(1.1);
     }
   }
   &:hover {
     color: #fe5863;
-    transform: scale(1.1, 1.1);
+    transform: scale(1.1);
   }
 }
 
