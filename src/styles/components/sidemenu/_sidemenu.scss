@@ -1,16 +1,16 @@
 .sm-container {
   width: 250px;
-  background-color: #0c0a0d;
+  background-color: $dark;
   height: 100%;
   transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   @media only screen and (max-width: 800px) {
     width: 75px;
   }
   .active {
-    border-left: solid #fd5765 5px;
+    border-left: solid $tomato 5px;
     color: white;
     @media only screen and (max-width: 800px) {
-      border-left: solid #fd5765 5px;
+      border-left: solid $tomato 5px;
       color: white;
     }
   }
@@ -58,7 +58,7 @@
   .sm-logo {
     font-size: 1.3rem;
     margin-right: 20px;
-    color: #fd5765;
+    color: $tomato;
   }
 
   .sm-icon {

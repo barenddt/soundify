@@ -21,7 +21,7 @@
     width: 15px;
     height: 15px;
     border-radius: 100px;
-    background: #fe5863;
+    background: $tomato;
     align-self: center;
     cursor: pointer;
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -51,12 +51,12 @@
       cursor: pointer;
       transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       &:hover {
-        color: #fe5863;
+        color: $tomato;
         transform: scale(1.1);
       }
     }
     &:hover {
-      color: #fe5863;
+      color: $tomato;
       transform: scale(1.1);
     }
   }

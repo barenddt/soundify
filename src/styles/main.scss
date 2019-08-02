@@ -27,7 +27,7 @@
   display: flex;
   flex: 1;
   height: 100%;
-  background: linear-gradient(145deg, #fe5863, #f857a6);
+  background: linear-gradient(145deg, $tomato, $pink);
   background-size: 400% 400%;
   overflow: hidden;
   -webkit-animation: flow 10s ease infinite;
@@ -73,7 +73,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  color: #0c0a0d;
+  color: $dark;
 }
 
 .container {
@@ -84,14 +84,14 @@
   &::-webkit-scrollbar {
     width: 0.2em;
     height: 0.2em;
-    background-color: #19151b;
+    background-color: $dark;
     @media only screen and (max-width: 800px) {
       width: 0;
     }
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #fe5863;
+    background-color: $tomato;
   }
 }
 
@@ -111,13 +111,4 @@
   overflow: hidden;
   cursor: pointer;
   backface-visibility: hidden;
-}
-
-@keyframes fadein {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }

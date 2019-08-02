@@ -5,7 +5,7 @@
   left: 0;
   right: 0;
   color: white;
-  background-color: lighten(#0c0a0d, 5%);
+  background-color: lighten($dark, 5%);
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
