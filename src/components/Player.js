@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import ReactSlider from "react-slider";
 import KeyboardEventHandler from "react-keyboard-event-handler";
+import PlayerButtonsContainer from "../containers/PlayerButtonsContainer";
+import PlayerSeekBarContainer from "../containers/PlayerSeekBarContainer";
+import PlayerInfo from "../components/PlayerInfo";
 
 export class Player extends Component {
   constructor(props) {
@@ -8,10 +11,7 @@ export class Player extends Component {
 
     this.state = {
       isSeeking: false,
-      value: 0,
-      trackPos: 0,
-      tip: "none",
-      timestamp: 0
+      value: 0
     };
   }
 
@@ -53,23 +53,6 @@ export class Player extends Component {
     }
   }
 
-  seekDone = e => {
-    this.props.seekPlayer(e);
-    this.setState({ isSeeking: false });
-  };
-
-  playNext() {
-    let tracks = this.props.browse.tracks;
-    let next;
-    if (!this.props.player.shuffle) {
-      next = tracks.indexOf(this.props.player.currentlyPlaying) + 1;
-      this.props.playTrack(tracks[next]);
-    } else {
-      next = tracks[Math.floor(Math.random() * tracks.length)];
-      this.props.playTrack(next);
-    }
-  }
-
   render() {
     let playerClass = this.props.player.playerState
       ? "player shadow-light"
@@ -77,111 +60,13 @@ export class Player extends Component {
 
     return (
       <div className={playerClass}>
-        <div
-          id="p-box"
-          className="player-progress-box"
-          onMouseMove={e => {
-            let pos = e.nativeEvent.offsetX;
-            let width = $("#p-box").width();
-            let newPos = (pos / width) * 100;
-            let time = (
-              ((pos / width) * this.props.player.playerState.getDuration()) /
-              1000
-            ).toFixed(0);
-            $("#tooltip").offset({ left: e.pageX - $("#tooltip").width() / 2 });
-            this.setState({
-              trackPos: newPos,
-              tip: "block",
-              timestamp: this.makeTime(time)
-            });
-          }}
-          onMouseLeave={e => {
-            this.setState({ trackPos: 0, tip: "none" });
-          }}
-          onClick={e => {
-            let pos = e.nativeEvent.offsetX;
-            let width = $("#p-box").width();
-            this.props.seekPlayer(
-              (pos / width) * this.props.player.playerState.getDuration()
-            );
-          }}
-        >
-          <div
-            style={{ display: this.state.tip }}
-            id="tooltip"
-            className="player-tooltip"
-          >
-            {this.state.timestamp}
-          </div>
-          <div
-            className="player-progress-hover"
-            style={{
-              width: this.state.trackPos + "%"
-            }}
-          />
-          <div
-            className="player-progress"
-            style={{
-              width: this.props.player.playerState
-                ? (this.props.player.playerState.currentTime() /
-                    this.props.player.playerState.getDuration()) *
-                    100 +
-                  "%"
-                : 0 + "%"
-            }}
-          />
-        </div>
+        <PlayerSeekBarContainer />
 
         <div className="player-box">
           {this.props.player.currentlyPlaying ? (
-            <div className="player-item-info">
-              <img
-                className="artwork"
-                src={
-                  this.props.player.currentlyPlaying.artwork_url
-                    ? this.props.player.currentlyPlaying.artwork_url
-                    : "https://i.postimg.cc/ZnG61QfD/default-track.png"
-                }
-              />
-              <div className="meta-data">
-                {this.props.player.currentlyPlaying.title}
-                <small className="artist">
-                  {this.props.player.currentlyPlaying.user.username.toUpperCase()}
-                </small>
-              </div>
-            </div>
+            <PlayerInfo player={this.props.player} />
           ) : null}
-
-          <div className="player-item-buttons">
-            <i
-              onClick={() => this.props.toggle("repeat")}
-              className={`p-icon-xs${
-                this.props.player.repeat ? "-active" : ""
-              } fas fa-redo-alt`}
-            />
-            <i
-              onClick={() => this.props.seekPlayer(0)}
-              className="p-icon-sm fas fa-step-backward"
-            />
-            <i
-              onClick={() => this.props.playPause(this.props.player.isPlaying)}
-              className={`p-icon ${
-                this.props.player.isPlaying
-                  ? "fas fa-pause-circle"
-                  : "fas fa-play-circle"
-              }`}
-            />
-            <i
-              onClick={() => this.playNext()}
-              className="p-icon-sm fas fa-step-forward"
-            />
-            <i
-              onClick={() => this.props.toggle("shuffle")}
-              className={`p-icon-xs${
-                this.props.player.shuffle ? "-active" : ""
-              } fas fa-random`}
-            />
-          </div>
+          <PlayerButtonsContainer />
           <div className="player-item-volume">
             <div onClick={() => this.props.adjustVolume(0)}>
               {this.makeVolIcon()}
@@ -249,13 +134,6 @@ export class Player extends Component {
     if (volume == 0) {
       return <i class="v-icon fas fa-volume-mute" />;
     }
-  }
-
-  makeTime(time) {
-    let min = Math.floor(time / 60);
-    min < 1 ? (min = 0) : (min = min.toFixed(0));
-    let sec = time % 60;
-    return `${min}:${sec < 10 ? 0 : ""}${sec}`;
   }
 }
 

@@ -107,6 +107,18 @@ export const playTrack = track => dispatch => {
   }, 100);
 };
 
+export const playNext = () => dispatch => {
+  let tracks = store.getState().browse.tracks;
+  let next;
+  if (!store.getState().player.shuffle) {
+    next = tracks.indexOf(store.getState().player.currentlyPlaying) + 1;
+    dispatch(playTrack(tracks[next]));
+  } else {
+    next = tracks[Math.floor(Math.random() * tracks.length)];
+    dispatch(playTrack(next));
+  }
+};
+
 const setMediaMeta = track => {
   document.title = `${track.title} - Soundify`;
   navigator.mediaSession.metadata = new MediaMetadata({
