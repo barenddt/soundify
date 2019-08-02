@@ -9,12 +9,12 @@ import {
 import { store } from "../reducers/store";
 
 let musicPlayer;
+let keepTicking = true;
 
 const initialState = {
   isPlaying: false,
   playerState: null,
   currentlyPlaying: null,
-  playNext: false,
   volume: localStorage.getItem("sc-vol") ? localStorage.getItem("sc-vol") : 50,
   repeat:
     localStorage.getItem("sc-repeat") == "true"
@@ -53,13 +53,6 @@ export default function(state = initialState, action) {
 }
 
 export const playTrack = track => dispatch => {
-  dispatch({
-    type: CHANGE_STATE,
-    payload: {
-      isPlaying: false,
-      playNext: false
-    }
-  });
   if (
     !musicPlayer ||
     track.id != store.getState().player.currentlyPlaying.id ||
@@ -83,28 +76,39 @@ export const playTrack = track => dispatch => {
           playNext: false
         }
       });
+      keepTicking = true;
+      const tick = setInterval(() => {
+        if (keepTicking) {
+          if (musicPlayer && musicPlayer.isPlaying()) {
+            dispatch({
+              type: UPDATE_PLAYER,
+              payload: {
+                playerState: musicPlayer
+              }
+            });
+          }
+          if (musicPlayer && musicPlayer.isEnded()) {
+            keepTicking = false;
+            clearInterval(tick);
+            let tracks = store.getState().browse.tracks;
+            let next;
+            if (store.getState().player.repeat) {
+              dispatch(playTrack(store.getState().player.currentlyPlaying));
+            } else {
+              if (!store.getState().player.shuffle) {
+                next =
+                  tracks.indexOf(store.getState().player.currentlyPlaying) + 1;
+                dispatch(playTrack(tracks[next]));
+              } else {
+                next = tracks[Math.floor(Math.random() * tracks.length)];
+                dispatch(playTrack(next));
+              }
+            }
+          }
+        }
+      }, 100);
     });
   }
-
-  const ticker = setInterval(() => {
-    if (musicPlayer && musicPlayer.isPlaying()) {
-      dispatch({
-        type: UPDATE_PLAYER,
-        payload: {
-          playerState: musicPlayer
-        }
-      });
-    }
-    if (musicPlayer && musicPlayer.isEnded()) {
-      dispatch({
-        type: CHANGE_STATE,
-        payload: {
-          isPlaying: false,
-          playNext: true
-        }
-      });
-    }
-  }, 100);
 };
 
 export const playNext = () => dispatch => {

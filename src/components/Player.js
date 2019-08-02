@@ -36,23 +36,6 @@ const Player = props => {
   };
 
   useEffect(() => {
-    setInterval(() => {
-      if (props.playNext) {
-        let tracks = props.tracks;
-        let next;
-        if (props.repeat) {
-          props.playTrack(props.currentlyPlaying);
-        } else {
-          if (!props.player.shuffle) {
-            next = tracks.indexOf(props.currentlyPlaying) + 1;
-            props.playTrack(tracks[next]);
-          } else {
-            next = tracks[Math.floor(Math.random() * tracks.length)];
-            props.playTrack(next);
-          }
-        }
-      }
-    }, 1000);
     navigator.mediaSession.setActionHandler("play", () => props.playPause());
     navigator.mediaSession.setActionHandler("pause", () => props.playPause());
     navigator.mediaSession.setActionHandler("previoustrack", () =>

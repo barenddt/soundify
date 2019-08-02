@@ -12,6 +12,8 @@ const PlayerContainer = connect(
   state => ({
     currentlyPlaying: state.player.currentlyPlaying,
     isPlaying: state.player.isPlaying,
+    repeat: state.player.repeat,
+    shuffle: state.player.shuffle,
     tracks: state.browse.tracks
   }),
   {
