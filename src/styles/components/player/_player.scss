@@ -1,0 +1,14 @@
+.player {
+  position: fixed;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  background-color: lighten(#0c0a0d, 5%);
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.player-hide {
+  transform: translateY(100%);
+}

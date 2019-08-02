@@ -12,8 +12,8 @@ export const SideMenu = props => {
           onClick={() => props.changeMenu(item.name)}
           className={props.menu.activeMenu == item.name ? "active" : null}
         >
-          <i class={`icon ${item.icon}`} />
-          <span className="sm-menu-item-text">{item.name}</span>
+          <i class={`sm-icon ${item.icon}`} />
+          <span className="sm-menu-text">{item.name}</span>
         </li>
       );
     });
@@ -22,10 +22,10 @@ export const SideMenu = props => {
   };
 
   return (
-    <div className="sidemenu shadow-dark">
-      <div className="logo-box">
-        <i className="logo fas fa-music" />
-        <span className="logo-box-text">Soundify</span>
+    <div className="sm-container shadow-dark">
+      <div className="sm-logo-container">
+        <i className="sm-logo fas fa-music" />
+        <span className="sm-logo-text">Soundify</span>
       </div>
 
       <ul>{makeMenu()}</ul>

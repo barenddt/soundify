@@ -1,0 +1,64 @@
+.player-progress-box {
+  width: 100%;
+  background-color: #0c0a0d;
+  height: 8px;
+  cursor: pointer;
+  transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  backface-visibility: hidden;
+  will-change: height;
+  &:hover {
+    height: 17px;
+  }
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  @media only screen and (max-width: 800px) {
+    height: 15px;
+    will-change: height;
+    &:hover {
+      height: 15px;
+    }
+  }
+}
+
+.player-progress {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  background-color: #fe5863;
+  transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.player-progress-hover {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 80%;
+  height: 100%;
+  background-color: #fe5863b7;
+  transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.player-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(33%, 1fr));
+  padding: 10px;
+  height: 70px;
+  @media only screen and (max-width: 800px) {
+    grid-template-columns: auto auto;
+  }
+}
+
+.player-tooltip {
+  display: block;
+  position: absolute;
+  bottom: 25;
+  z-index: 10;
+  padding: 7px;
+  background-color: #fe5863;
+  font-size: 0.8rem;
+  border-radius: 100px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  animation: tooltipIn 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}

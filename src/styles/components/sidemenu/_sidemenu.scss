@@ -1,4 +1,4 @@
-.sidemenu {
+.sm-container {
   width: 250px;
   background-color: #0c0a0d;
   height: 100%;
@@ -33,43 +33,42 @@
       }
     }
   }
-}
-
-.logo-box {
-  display: flex;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  justify-content: left;
-  align-items: center;
-  color: white;
-  padding: 15px;
-  padding-left: 35px;
-  font-size: 1.2rem;
-  @media only screen and (max-width: 800px) {
-    display: none;
+  .sm-logo-container {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: left;
+    align-items: center;
+    color: white;
+    padding: 15px;
+    padding-left: 35px;
+    font-size: 1.2rem;
+    @media only screen and (max-width: 800px) {
+      display: none;
+    }
   }
-}
 
-.logo-box-text {
-  font-size: 1.3rem;
-  @media only screen and (max-width: 800px) {
-    display: none;
+  .sm-logo-text {
+    font-size: 1.3rem;
+    @media only screen and (max-width: 800px) {
+      display: none;
+    }
   }
-}
 
-.logo {
-  font-size: 1.3rem;
-  margin-right: 20px;
-  color: #fd5765;
-}
+  .sm-logo {
+    font-size: 1.3rem;
+    margin-right: 20px;
+    color: #fd5765;
+  }
 
-.icon {
-  font-size: 1.2rem;
-  margin-right: 20px;
-}
+  .sm-icon {
+    font-size: 1.2rem;
+    margin-right: 20px;
+  }
 
-.sm-menu-item-text {
-  @media only screen and (max-width: 800px) {
-    display: none;
+  .sm-menu-text {
+    @media only screen and (max-width: 800px) {
+      display: none;
+    }
   }
 }

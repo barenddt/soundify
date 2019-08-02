@@ -10,8 +10,9 @@ import {
 
 const PlayerButtonsContainer = connect(
   state => ({
-    browse: state.browse,
-    player: state.player
+    isPlaying: state.player.isPlaying,
+    isRepeat: state.player.repeat,
+    isShuffle: state.player.shuffle
   }),
   { playTrack, playPause, toggle, seekPlayer, playNext }
 )(PlayerButtons);

@@ -10,8 +10,9 @@ import {
 
 const PlayerContainer = connect(
   state => ({
-    player: state.player,
-    browse: state.browse
+    currentlyPlaying: state.player.currentlyPlaying,
+    isPlaying: state.player.isPlaying,
+    tracks: state.browse.tracks
   }),
   {
     playPause,

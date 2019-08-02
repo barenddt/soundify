@@ -6,7 +6,7 @@ const PlayerButtons = props => {
       <i
         onClick={() => props.toggle("repeat")}
         className={`p-icon-xs${
-          props.player.repeat ? "-active" : ""
+          props.isRepeat ? "-active" : ""
         } fas fa-redo-alt`}
       />
       <i
@@ -14,9 +14,9 @@ const PlayerButtons = props => {
         className="p-icon-sm fas fa-step-backward"
       />
       <i
-        onClick={() => props.playPause(props.player.isPlaying)}
+        onClick={() => props.playPause(props.isPlaying)}
         className={`p-icon ${
-          props.player.isPlaying ? "fas fa-pause-circle" : "fas fa-play-circle"
+          props.isPlaying ? "fas fa-pause-circle" : "fas fa-play-circle"
         }`}
       />
       <i
@@ -25,9 +25,7 @@ const PlayerButtons = props => {
       />
       <i
         onClick={() => props.toggle("shuffle")}
-        className={`p-icon-xs${
-          props.player.shuffle ? "-active" : ""
-        } fas fa-random`}
+        className={`p-icon-xs${props.isShuffle ? "-active" : ""} fas fa-random`}
       />
     </div>
   );

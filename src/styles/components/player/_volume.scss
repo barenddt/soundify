@@ -1,0 +1,63 @@
+.player-item-volume {
+  @include playerGrid;
+  grid-template-columns: auto auto;
+  justify-content: end;
+
+  .v-slider {
+    display: flex;
+    width: 200px;
+    height: 5px;
+    background: white;
+    border-radius: 100px;
+    margin-left: 10px;
+    justify-content: center;
+    align-items: center;
+    @media only screen and (max-width: 1200px) {
+      display: none;
+    }
+  }
+
+  .v-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 100px;
+    background: #fe5863;
+    align-self: center;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    &:hover {
+      transform: scale(1.2, 1.2);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    }
+    @media only screen and (max-width: 1200px) {
+      display: none;
+    }
+  }
+
+  .v-icon {
+    font-size: 1.6rem;
+    color: white;
+    width: 20px;
+    margin-left: 15px;
+    margin-right: 10px;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    @media only screen and (max-width: 1200px) {
+      display: none;
+    }
+    &-sm {
+      font-size: 1.4rem;
+      color: white;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      &:hover {
+        color: #fe5863;
+        transform: scale(1.1);
+      }
+    }
+    &:hover {
+      color: #fe5863;
+      transform: scale(1.1);
+    }
+  }
+}

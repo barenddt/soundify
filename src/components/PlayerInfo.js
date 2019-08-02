@@ -6,15 +6,15 @@ const PlayerInfo = props => {
       <img
         className="artwork"
         src={
-          props.player.currentlyPlaying.artwork_url
-            ? props.player.currentlyPlaying.artwork_url
+          props.currentlyPlaying.artwork_url
+            ? props.currentlyPlaying.artwork_url
             : "https://i.postimg.cc/ZnG61QfD/default-track.png"
         }
       />
       <div className="meta-data">
-        {props.player.currentlyPlaying.title}
+        {props.currentlyPlaying.title}
         <small className="artist">
-          {props.player.currentlyPlaying.user.username.toUpperCase()}
+          {props.currentlyPlaying.user.username.toUpperCase()}
         </small>
       </div>
     </div>

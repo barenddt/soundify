@@ -6,7 +6,7 @@ import thunk from "redux-thunk";
 
 export const history = createBrowserHistory();
 
-function configureStore(preloadedState) {
+const configureStore = preloadedState => {
   const store = createStore(
     createRootReducer(history),
     preloadedState,
@@ -14,6 +14,6 @@ function configureStore(preloadedState) {
   );
 
   return store;
-}
+};
 
 export const store = configureStore({});
