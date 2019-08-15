@@ -1,5 +1,8 @@
 import { SEARCH_TRACKS, GET_MORE, REFRESHING } from "./types";
 import Axios from "axios";
+import SCv2 from "soundcloud-api-v2";
+
+SCv2.init("tNdzqSQH10kJuLrRhPLbf5wtQEnaXmi1");
 
 const initialState = {
   tracks: [],
@@ -31,17 +34,12 @@ export default function(state = initialState, action) {
 }
 
 export const searchTracks = e => dispatch => {
-  dispatch({
-    type: SEARCH_TRACKS,
-    payload: {
-      tracks: []
-    }
-  });
   SC.get("/tracks", {
     q: e,
     limit: 45,
     linked_partitioning: 1
   }).then(tracks => {
+    console.log(tracks);
     dispatch({
       type: SEARCH_TRACKS,
       payload: {

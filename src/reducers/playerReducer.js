@@ -58,17 +58,17 @@ export const playTrack = track => dispatch => {
     track.id != store.getState().player.currentlyPlaying.id ||
     store.getState().player.repeat
   ) {
+    dispatch({
+      type: CHANGE_CURRENT,
+      payload: {
+        currentlyPlaying: track
+      }
+    });
     SC.stream(`/tracks/${track.id}`).then(stream => {
       musicPlayer = stream;
       musicPlayer.play();
       musicPlayer.setVolume(store.getState().player.volume / 100);
       setMediaMeta(track);
-      dispatch({
-        type: CHANGE_CURRENT,
-        payload: {
-          currentlyPlaying: track
-        }
-      });
       dispatch({
         type: CHANGE_STATE,
         payload: {
