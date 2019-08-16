@@ -1,14 +1,14 @@
 import { SEARCH_TRACKS, GET_MORE, REFRESHING } from "./types";
 import Axios from "axios";
 import SCv2 from "soundcloud-api-v2";
+import { store } from "../reducers/store";
 
 SCv2.init("tNdzqSQH10kJuLrRhPLbf5wtQEnaXmi1");
 
 const initialState = {
   tracks: [],
   q: null,
-  next_href: null,
-  refreshing: false
+  next_href: null
 };
 
 export default function(state = initialState, action) {
@@ -23,7 +23,6 @@ export default function(state = initialState, action) {
         state.tracks.push(action.payload.tracks[i]);
       }
       state.next_href = action.payload.next_href;
-      state.refreshing = false;
       return { ...state };
     case REFRESHING:
       state.refreshing = action.payload.refreshing;
@@ -39,7 +38,6 @@ export const searchTracks = e => dispatch => {
     limit: 45,
     linked_partitioning: 1
   }).then(tracks => {
-    console.log(tracks);
     dispatch({
       type: SEARCH_TRACKS,
       payload: {
@@ -51,20 +49,20 @@ export const searchTracks = e => dispatch => {
   });
 };
 
-export const getMore = e => dispatch => {
-  dispatch({
-    type: REFRESHING,
-    payload: {
-      refreshing: true
-    }
-  });
-  Axios.get(e).then(res => {
-    dispatch({
-      type: GET_MORE,
-      payload: {
-        tracks: res.data.collection,
-        next_href: res.data.next_href
-      }
+let refreshing = false;
+
+export const getMore = () => dispatch => {
+  if (!refreshing) {
+    refreshing = true;
+    Axios.get(store.getState().browse.next_href).then(res => {
+      dispatch({
+        type: GET_MORE,
+        payload: {
+          tracks: res.data.collection,
+          next_href: res.data.next_href
+        }
+      });
+      refreshing = false;
     });
-  });
+  }
 };
