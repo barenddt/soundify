@@ -7,6 +7,12 @@ import {
   TOGGLE
 } from "./types";
 import { store } from "../reducers/store";
+import SCv2 from "soundcloud-api-v2";
+
+SCv2.init({
+  clientId: "tNdzqSQH10kJuLrRhPLbf5wtQEnaXmi1",
+  host: "https://aqueous-lake-30663.herokuapp.com"
+});
 
 let musicPlayer;
 let keepTicking = true;
@@ -64,50 +70,53 @@ export const playTrack = track => dispatch => {
         currentlyPlaying: track
       }
     });
-    SC.stream(`/tracks/${track.id}`).then(stream => {
-      musicPlayer = stream;
-      musicPlayer.play();
-      musicPlayer.setVolume(store.getState().player.volume / 100);
-      setMediaMeta(track);
-      dispatch({
-        type: CHANGE_STATE,
-        payload: {
-          isPlaying: true,
-          playNext: false
-        }
-      });
-      keepTicking = true;
-      const tick = setInterval(() => {
-        if (keepTicking) {
-          if (musicPlayer && musicPlayer.isPlaying()) {
-            dispatch({
-              type: UPDATE_PLAYER,
-              payload: {
-                playerState: musicPlayer
-              }
-            });
-          }
-          if (musicPlayer && musicPlayer.isEnded()) {
-            keepTicking = false;
-            clearInterval(tick);
-            let tracks = store.getState().browse.tracks;
-            let next;
-            if (store.getState().player.repeat) {
-              dispatch(playTrack(store.getState().player.currentlyPlaying));
-            } else {
-              if (!store.getState().player.shuffle) {
-                next =
-                  tracks.indexOf(store.getState().player.currentlyPlaying) + 1;
-                dispatch(playTrack(tracks[next]));
-              } else {
-                next = tracks[Math.floor(Math.random() * tracks.length)];
-                dispatch(playTrack(next));
-              }
-            }
-          }
-        }
-      }, 100);
+    SCv2.stream(`tracks/${track.id}/streams`, {}).then(stream => {
+      stream.play();
     });
+    // SC.stream(`/tracks/${track.id}`).then(stream => {
+    //   musicPlayer = stream;
+    //   musicPlayer.play();
+    //   musicPlayer.setVolume(store.getState().player.volume / 100);
+    //   setMediaMeta(track);
+    //   dispatch({
+    //     type: CHANGE_STATE,
+    //     payload: {
+    //       isPlaying: true,
+    //       playNext: false
+    //     }
+    //   });
+    //   keepTicking = true;
+    //   const tick = setInterval(() => {
+    //     if (keepTicking) {
+    //       if (musicPlayer && musicPlayer.isPlaying()) {
+    //         dispatch({
+    //           type: UPDATE_PLAYER,
+    //           payload: {
+    //             playerState: musicPlayer
+    //           }
+    //         });
+    //       }
+    //       if (musicPlayer && musicPlayer.isEnded()) {
+    //         keepTicking = false;
+    //         clearInterval(tick);
+    //         let tracks = store.getState().browse.tracks;
+    //         let next;
+    //         if (store.getState().player.repeat) {
+    //           dispatch(playTrack(store.getState().player.currentlyPlaying));
+    //         } else {
+    //           if (!store.getState().player.shuffle) {
+    //             next =
+    //               tracks.indexOf(store.getState().player.currentlyPlaying) + 1;
+    //             dispatch(playTrack(tracks[next]));
+    //           } else {
+    //             next = tracks[Math.floor(Math.random() * tracks.length)];
+    //             dispatch(playTrack(next));
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }, 100);
+    // });
   }
 };
 

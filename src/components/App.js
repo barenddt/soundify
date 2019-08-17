@@ -7,12 +7,6 @@ import PlayerContainer from "../containers/PlayerContainer";
 import BrowseContainer from "../containers/BrowseContainer";
 
 export const App = () => {
-  useEffect(() => {
-    SC.initialize({
-      client_id: "9aB60VZycIERY07OUTVBL5GeErnTA0E4"
-    });
-  });
-
   return (
     <ConnectedRouter history={history}>
       <div className="main-container">

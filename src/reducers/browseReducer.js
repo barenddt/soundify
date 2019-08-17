@@ -1,9 +1,15 @@
 import { SEARCH_TRACKS, GET_MORE, REFRESHING } from "./types";
-import Axios from "axios";
-import SCv2 from "soundcloud-api-v2";
 import { store } from "../reducers/store";
+import SCv2 from "soundcloud-api-v2";
 
-SCv2.init("tNdzqSQH10kJuLrRhPLbf5wtQEnaXmi1");
+SC.initialize({
+  client_id: "9aB60VZycIERY07OUTVBL5GeErnTA0E4"
+});
+
+SCv2.init({
+  clientId: "tNdzqSQH10kJuLrRhPLbf5wtQEnaXmi1",
+  host: "https://aqueous-lake-30663.herokuapp.com"
+});
 
 const initialState = {
   tracks: [],
@@ -33,7 +39,7 @@ export default function(state = initialState, action) {
 }
 
 export const searchTracks = e => dispatch => {
-  SC.get("/tracks", {
+  SCv2.get("search/tracks", {
     q: e,
     limit: 45,
     linked_partitioning: 1
@@ -54,12 +60,21 @@ let refreshing = false;
 export const getMore = () => dispatch => {
   if (!refreshing) {
     refreshing = true;
-    Axios.get(store.getState().browse.next_href).then(res => {
+
+    let urlObj = new URL(store.getState().browse.next_href);
+    let pathname = urlObj.pathname.substring(1);
+    let params = {};
+
+    urlObj.searchParams.forEach((val, key) => {
+      params[key] = val;
+    });
+
+    SCv2.get(pathname, params).then(res => {
       dispatch({
         type: GET_MORE,
         payload: {
-          tracks: res.data.collection,
-          next_href: res.data.next_href
+          tracks: res.collection,
+          next_href: res.next_href
         }
       });
       refreshing = false;
