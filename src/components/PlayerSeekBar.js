@@ -21,8 +21,8 @@ const PlayerSeekbar = props => {
         let width = $("#p-box").width();
         let newPos = (pos / width) * 100;
         let time = (
-          ((pos / width) * props.player.playerState.getDuration()) /
-          1000
+          (pos / width) *
+          props.player.playerState.getDuration()
         ).toFixed(0);
         $("#tooltip").offset({ left: e.pageX - $("#tooltip").width() / 2 });
         setTrackPos(newPos);
@@ -54,7 +54,7 @@ const PlayerSeekbar = props => {
         className="player-progress"
         style={{
           width: props.player.playerState
-            ? (props.player.playerState.currentTime() /
+            ? (props.player.playerState.currentTime /
                 props.player.playerState.getDuration()) *
                 100 +
               "%"

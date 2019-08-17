@@ -6097,10 +6097,10 @@ sockjs@0.3.19:
     faye-websocket "^0.10.0"
     uuid "^3.0.1"
 
-soundcloud-api-v2@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/soundcloud-api-v2/-/soundcloud-api-v2-0.1.2.tgz#377e3ae8b655646d2d67fae477655fa9b05f842e"
-  integrity sha512-vBu8+Km2QFFWBaD54NgvQMcZBLPA4OEfDj750yPCFnyY/9Q61CQM2E39Jah6TOlAKEGaXSZPPSQyI6buuMcloA==
+soundcloud-api-v2@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/soundcloud-api-v2/-/soundcloud-api-v2-0.2.0.tgz#147b1014bb4554fcf699d3df396a9cff6bf9636c"
+  integrity sha512-U3VZaaeTzJdQ10OFfuBa69ffvlR7TBMjB2sD4KxnB2VtAmlYP8JqKkBZNQYmwpECv1VxY4Ijz2BC28pMJS8S4g==
   dependencies:
     axios "^0.19.0"
 

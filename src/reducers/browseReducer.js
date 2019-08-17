@@ -1,6 +1,6 @@
 import { SEARCH_TRACKS, GET_MORE, REFRESHING } from "./types";
 import { store } from "../reducers/store";
-import SCv2 from "soundcloud-api-v2";
+import SCv2 from "../SC";
 
 SC.initialize({
   client_id: "9aB60VZycIERY07OUTVBL5GeErnTA0E4"
