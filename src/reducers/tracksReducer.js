@@ -79,7 +79,7 @@ export const getTrending = params => dispatch => {
 
 let refreshing = false;
 
-export const getMore = page => dispatch => {
+export const getMore = () => dispatch => {
   if (!refreshing) {
     refreshing = true;
 

@@ -4,13 +4,14 @@ import TrackListContainer from "../containers/TrackListContainer";
 
 const Search = props => {
   useEffect(() => {
+    $("#search-container").unbind("scroll");
     $("#search-container").on("scroll", () => {
       if (
         $("#search-container").scrollTop() +
           $("#search-container").innerHeight() >=
         $("#search-container")[0].scrollHeight - 300
       ) {
-        props.getMore(props.page);
+        props.getMore();
       }
     });
   });
