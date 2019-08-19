@@ -11,5 +11,6 @@ export const TOGGLE = "TOGGLE";
 
 //Browse
 export const SEARCH_TRACKS = "SEARCH_TRACKS";
+export const GET_TRENDING = "GET_TRENDING";
 export const GET_MORE = "GET_MORE";
 export const REFRESHING = "REFRESHING";

@@ -1,5 +1,5 @@
-import { SEARCH_TRACKS, GET_MORE, REFRESHING } from "./types";
-import { store } from "../reducers/store";
+import { SEARCH_TRACKS, GET_MORE, REFRESHING, GET_TRENDING } from "./types";
+import { store } from "./store";
 import SCv2 from "../SC";
 
 SC.initialize({
@@ -12,23 +12,29 @@ SCv2.init({
 });
 
 const initialState = {
-  tracks: [],
+  search: [],
+  trending: [],
   q: null,
-  next_href: null
+  search_href: null,
+  trending_href: null
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case SEARCH_TRACKS:
-      state.tracks = action.payload.tracks;
+      state.search = action.payload.search;
       state.q = action.payload.q;
-      state.next_href = action.payload.next_href;
+      state.search_href = action.payload.search_href;
+      return { ...state };
+    case GET_TRENDING:
+      state.trending = action.payload.trending;
+      state.trending_href = action.payload.trending_href;
       return { ...state };
     case GET_MORE:
-      for (let i = 0; i < action.payload.tracks.length; i++) {
-        state.tracks.push(action.payload.tracks[i]);
+      for (let i = 0; i < action.payload.search.length; i++) {
+        state.search.push(action.payload.search[i]);
       }
-      state.next_href = action.payload.next_href;
+      state.search_href = action.payload.search_href;
       return { ...state };
     case REFRESHING:
       state.refreshing = action.payload.refreshing;
@@ -43,13 +49,29 @@ export const searchTracks = e => dispatch => {
     q: e,
     limit: 45,
     linked_partitioning: 1
-  }).then(tracks => {
+  }).then(search => {
     dispatch({
       type: SEARCH_TRACKS,
       payload: {
-        tracks: tracks.collection,
+        search: search.collection,
         q: e,
-        next_href: tracks.next_href
+        search_href: search.next_href
+      }
+    });
+  });
+};
+
+export const getTrending = params => dispatch => {
+  SCv2.get("charts", params).then(trending => {
+    let tracks = [];
+    trending.collection.forEach(item => {
+      tracks.push(item.track);
+    });
+    dispatch({
+      type: GET_TRENDING,
+      payload: {
+        trending: tracks,
+        trending_href: trending.next_href
       }
     });
   });
@@ -57,11 +79,11 @@ export const searchTracks = e => dispatch => {
 
 let refreshing = false;
 
-export const getMore = () => dispatch => {
+export const getMore = page => dispatch => {
   if (!refreshing) {
     refreshing = true;
 
-    let urlObj = new URL(store.getState().browse.next_href);
+    let urlObj = new URL(store.getState().tracks.search_href);
     let pathname = urlObj.pathname.substring(1);
     let params = {};
 
@@ -73,8 +95,8 @@ export const getMore = () => dispatch => {
       dispatch({
         type: GET_MORE,
         payload: {
-          tracks: res.collection,
-          next_href: res.next_href
+          search: res.collection,
+          search_href: res.next_href
         }
       });
       refreshing = false;

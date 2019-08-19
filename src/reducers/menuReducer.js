@@ -1,11 +1,11 @@
 import { CHANGE_MENU } from "./types";
-import { history } from "./store";
+import { history, store } from "./store";
 
 const initialState = {
-  activeMenu: "Browse",
+  activeMenu: "Search",
   items: [
     {
-      name: "Browse",
+      name: "Search",
       icon: "fas fa-search"
     },
     {

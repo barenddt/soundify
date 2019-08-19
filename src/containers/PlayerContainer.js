@@ -14,7 +14,7 @@ const PlayerContainer = connect(
     isPlaying: state.player.isPlaying,
     repeat: state.player.repeat,
     shuffle: state.player.shuffle,
-    tracks: state.browse.tracks
+    search: state.tracks.search
   }),
   {
     playPause,

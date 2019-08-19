@@ -70,8 +70,8 @@ export const playTrack = track => dispatch => {
         currentlyPlaying: track
       }
     });
-    musicPlayer ? musicPlayer.pause() : null;
     SCv2.stream(`tracks/${track.id}/streams`, {}).then(stream => {
+      musicPlayer ? musicPlayer.pause() : null;
       musicPlayer = stream;
       musicPlayer.play();
       musicPlayer.setVolume(store.getState().player.volume / 100);
@@ -84,7 +84,11 @@ export const playTrack = track => dispatch => {
         }
       });
       keepTicking = true;
+
       const tick = setInterval(() => {
+        if (store.getState().player.currentlyPlaying.id != track.id) {
+          clearInterval(tick);
+        }
         if (keepTicking) {
           if (musicPlayer && musicPlayer.isPlaying()) {
             dispatch({
@@ -95,9 +99,9 @@ export const playTrack = track => dispatch => {
             });
           }
           if (musicPlayer && musicPlayer.isEnded()) {
-            keepTicking = false;
             clearInterval(tick);
-            let tracks = store.getState().browse.tracks;
+            keepTicking = false;
+            let tracks = store.getState().tracks.search;
             let next;
             if (store.getState().player.repeat) {
               dispatch(playTrack(store.getState().player.currentlyPlaying));
@@ -119,7 +123,7 @@ export const playTrack = track => dispatch => {
 };
 
 export const playNext = () => dispatch => {
-  let tracks = store.getState().browse.tracks;
+  let tracks = store.getState().tracks.search;
   let next;
   if (!store.getState().player.shuffle) {
     next = tracks.indexOf(store.getState().player.currentlyPlaying) + 1;

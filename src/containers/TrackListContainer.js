@@ -1,12 +1,9 @@
 import { connect } from "react-redux";
 import TrackList from "../components/TrackList";
-import { getMore } from "../reducers/browseReducer";
 
-const TrackListContainer = connect(
-  state => ({ browse: state.browse }),
-  {
-    getMore
-  }
-)(TrackList);
+const TrackListContainer = connect(state => ({
+  tracks: state.tracks,
+  menu: state.menu
+}))(TrackList);
 
 export default TrackListContainer;
