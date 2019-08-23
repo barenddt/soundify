@@ -11,10 +11,6 @@ const initialState = {
     {
       name: "Trending",
       icon: "fab fa-hotjar"
-    },
-    {
-      name: "Playlists",
-      icon: "fas fa-th-list"
     }
   ]
 };

@@ -1,6 +1,6 @@
 import { SEARCH_TRACKS, GET_MORE, REFRESHING, GET_TRENDING } from "./types";
 import { store } from "./store";
-import SCv2 from "../SC";
+import SCv2 from "soundcloud-v2-api";
 
 SC.initialize({
   client_id: "9aB60VZycIERY07OUTVBL5GeErnTA0E4"
@@ -8,7 +8,7 @@ SC.initialize({
 
 SCv2.init({
   clientId: "tNdzqSQH10kJuLrRhPLbf5wtQEnaXmi1",
-  host: "https://aqueous-lake-30663.herokuapp.com"
+  cors: true
 });
 
 const initialState = {
@@ -45,7 +45,7 @@ export default function(state = initialState, action) {
 }
 
 export const searchTracks = e => dispatch => {
-  SCv2.get("search/tracks", {
+  SCv2.get("/search/tracks", {
     q: e,
     limit: 45,
     linked_partitioning: 1
@@ -62,7 +62,7 @@ export const searchTracks = e => dispatch => {
 };
 
 export const getTrending = params => dispatch => {
-  SCv2.get("charts", params).then(trending => {
+  SCv2.get("/charts", params).then(trending => {
     let tracks = [];
     trending.collection.forEach(item => {
       tracks.push(item.track);

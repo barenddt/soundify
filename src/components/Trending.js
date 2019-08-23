@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import TrackListContainer from "../containers/TrackListContainer";
+import TrendingFilterContainer from "../containers/TrendingFilterContainer";
 
 const Trending = props => {
   useEffect(() => {
@@ -15,6 +16,7 @@ const Trending = props => {
 
   return (
     <div id="cont" className="container">
+      <TrendingFilterContainer />
       <TrackListContainer page="trending" />
     </div>
   );
