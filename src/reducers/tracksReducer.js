@@ -87,7 +87,7 @@ export const getMore = () => dispatch => {
       params[key] = val;
     });
 
-    SCv2.get("/" + pathname, params).then(res => {
+    SCv2.get(`/${pathname}`, params).then(res => {
       dispatch({
         type: GET_MORE,
         payload: {
