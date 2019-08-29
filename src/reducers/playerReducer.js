@@ -11,7 +11,7 @@ import SCv2 from "../SC";
 
 SCv2.init({
   clientId: "tNdzqSQH10kJuLrRhPLbf5wtQEnaXmi1",
-  host: "https://aqueous-lake-30663.herokuapp.com"
+  cors: true
 });
 
 let musicPlayer;

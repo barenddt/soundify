@@ -2,10 +2,6 @@ import { SEARCH_TRACKS, GET_MORE, REFRESHING, GET_TRENDING } from "./types";
 import { store } from "./store";
 import SCv2 from "soundcloud-v2-api";
 
-SC.initialize({
-  client_id: "9aB60VZycIERY07OUTVBL5GeErnTA0E4"
-});
-
 SCv2.init({
   clientId: "tNdzqSQH10kJuLrRhPLbf5wtQEnaXmi1",
   cors: true
@@ -91,7 +87,7 @@ export const getMore = () => dispatch => {
       params[key] = val;
     });
 
-    SCv2.get(pathname, params).then(res => {
+    SCv2.get("/" + pathname, params).then(res => {
       dispatch({
         type: GET_MORE,
         payload: {
