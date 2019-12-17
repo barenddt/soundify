@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-const PlayerSeekbar = props => {
+const PlayerSeekbar = (props) => {
   const [trackPos, setTrackPos] = useState(0);
   const [tip, setTip] = useState("none");
   const [timestamp, setTimestamp] = useState(0);
 
-  const formatTime = time => {
+  const formatTime = (time) => {
     let min = Math.floor(time / 60);
     min < 1 ? (min = 0) : (min = min.toFixed(0));
     let sec = time % 60;
@@ -16,7 +16,7 @@ const PlayerSeekbar = props => {
     <div
       id="p-box"
       className="player-progress-box"
-      onMouseMove={e => {
+      onMouseMove={(e) => {
         let pos = e.nativeEvent.offsetX;
         let width = $("#p-box").width();
         let newPos = (pos / width) * 100;
@@ -33,7 +33,7 @@ const PlayerSeekbar = props => {
         setTrackPos(0);
         setTip("none");
       }}
-      onClick={e => {
+      onClick={(e) => {
         let pos = e.nativeEvent.offsetX;
         let width = $("#p-box").width();
         props.seekPlayer(

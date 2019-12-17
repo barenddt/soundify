@@ -3,7 +3,7 @@ import { store } from "./store";
 import SCv2 from "soundcloud-v2-api";
 
 SCv2.init({
-  clientId: "tNdzqSQH10kJuLrRhPLbf5wtQEnaXmi1",
+  clientId: "1XduoqV99lROqCMpijtDo5WnJmpaLuYm",
   cors: true
 });
 
@@ -40,12 +40,12 @@ export default function(state = initialState, action) {
   }
 }
 
-export const searchTracks = e => dispatch => {
+export const searchTracks = (e) => (dispatch) => {
   SCv2.get("/search/tracks", {
     q: e,
     limit: 45,
     linked_partitioning: 1
-  }).then(search => {
+  }).then((search) => {
     dispatch({
       type: SEARCH_TRACKS,
       payload: {
@@ -57,10 +57,10 @@ export const searchTracks = e => dispatch => {
   });
 };
 
-export const getTrending = params => dispatch => {
-  SCv2.get("/charts", params).then(trending => {
+export const getTrending = (params) => (dispatch) => {
+  SCv2.get("/charts", params).then((trending) => {
     let tracks = [];
-    trending.collection.forEach(item => {
+    trending.collection.forEach((item) => {
       tracks.push(item.track);
     });
     dispatch({
@@ -75,7 +75,7 @@ export const getTrending = params => dispatch => {
 
 let refreshing = false;
 
-export const getMore = () => dispatch => {
+export const getMore = () => (dispatch) => {
   if (!refreshing) {
     refreshing = true;
 
@@ -87,7 +87,7 @@ export const getMore = () => dispatch => {
       params[key] = val;
     });
 
-    SCv2.get(`/${pathname}`, params).then(res => {
+    SCv2.get(`/${pathname}`, params).then((res) => {
       dispatch({
         type: GET_MORE,
         payload: {

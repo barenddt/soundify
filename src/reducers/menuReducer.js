@@ -2,7 +2,7 @@ import { CHANGE_MENU } from "./types";
 import { history, store } from "./store";
 
 const initialState = {
-  activeMenu: "Search",
+  activeMenu: "Trending",
   items: [
     {
       name: "Search",
@@ -25,7 +25,7 @@ export default function(state = initialState, action) {
   }
 }
 
-export const changeMenu = active => dispatch => {
+export const changeMenu = (active) => (dispatch) => {
   dispatch({
     type: CHANGE_MENU,
     payload: {

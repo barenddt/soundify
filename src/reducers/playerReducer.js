@@ -10,7 +10,7 @@ import { store } from "../reducers/store";
 import SCv2 from "../SC";
 
 SCv2.init({
-  clientId: "tNdzqSQH10kJuLrRhPLbf5wtQEnaXmi1",
+  clientId: "RUQWGyj6q6sKdsel5JpFoJUvjHmSbPe5",
   cors: true
 });
 
@@ -58,19 +58,21 @@ export default function(state = initialState, action) {
   }
 }
 
-export const playTrack = track => dispatch => {
+export const playTrack = (track) => (dispatch) => {
   if (
     !musicPlayer ||
     track.id != store.getState().player.currentlyPlaying.id ||
     store.getState().player.repeat
   ) {
+    console.log(track);
     dispatch({
       type: CHANGE_CURRENT,
       payload: {
         currentlyPlaying: track
       }
     });
-    SCv2.stream(`tracks/${track.id}/streams`, {}).then(stream => {
+
+    SCv2.stream(`${track.media.transcodings[0].url}`, {}).then((stream) => {
       musicPlayer ? musicPlayer.pause() : null;
       musicPlayer = stream;
       musicPlayer.play();
@@ -122,7 +124,7 @@ export const playTrack = track => dispatch => {
   }
 };
 
-export const playNext = () => dispatch => {
+export const playNext = () => (dispatch) => {
   let tracks = store.getState().tracks.search;
   let next;
   if (!store.getState().player.shuffle) {
@@ -134,7 +136,7 @@ export const playNext = () => dispatch => {
   }
 };
 
-const setMediaMeta = track => {
+const setMediaMeta = (track) => {
   document.title = `${track.title} - Soundify`;
   navigator.mediaSession.metadata = new MediaMetadata({
     title: track.title,
@@ -151,7 +153,7 @@ const setMediaMeta = track => {
   });
 };
 
-export const playPause = state => dispatch => {
+export const playPause = (state) => (dispatch) => {
   if (state) {
     musicPlayer.pause();
   } else {
@@ -162,7 +164,7 @@ export const playPause = state => dispatch => {
   });
 };
 
-export const seekPlayer = to => dispatch => {
+export const seekPlayer = (to) => (dispatch) => {
   if (musicPlayer && musicPlayer.isActuallyPlaying()) {
     musicPlayer.seek(to);
   } else {
@@ -177,7 +179,7 @@ export const seekPlayer = to => dispatch => {
   }
 };
 
-export const adjustVolume = to => dispatch => {
+export const adjustVolume = (to) => (dispatch) => {
   localStorage.setItem("sc-vol", to);
   if (musicPlayer) {
     musicPlayer.setVolume(to / 100);
@@ -190,7 +192,7 @@ export const adjustVolume = to => dispatch => {
   });
 };
 
-export const toggle = name => dispatch => {
+export const toggle = (name) => (dispatch) => {
   localStorage.setItem(`sc-${name}`, !store.getState().player[name]);
   dispatch({
     type: TOGGLE,

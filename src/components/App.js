@@ -14,7 +14,7 @@ export const App = () => {
         <SideMenuContainer />
         <div className="main-content">
           <Switch>
-            <Route exact path="/" component={SearchContainer} />
+            <Route exact path="/" component={TrendingContainer} />
             <Route exact path="/search" component={SearchContainer} />
             <Route exact path="/trending" component={TrendingContainer} />
           </Switch>
