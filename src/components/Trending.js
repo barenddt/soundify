@@ -7,7 +7,7 @@ const Trending = (props) => {
     if (props.tracks.trending.length == 0) {
       props.getTrending({
         kind: "top",
-        genre: "soundcloud:genres:all-music",
+        genre: "soundcloud:genres:electronic",
         region: "soundcloud:regions:CA",
         limit: "50"
       });

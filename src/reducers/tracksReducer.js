@@ -10,6 +10,7 @@ SCv2.init({
 const initialState = {
   search: [],
   trending: [],
+  autoplay: [],
   q: null,
   search_href: null,
   trending_href: null
@@ -19,11 +20,13 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case SEARCH_TRACKS:
       state.search = action.payload.search;
+      state.autoplay = action.payload.search;
       state.q = action.payload.q;
       state.search_href = action.payload.search_href;
       return { ...state };
     case GET_TRENDING:
       state.trending = action.payload.trending;
+      state.autoplay = action.payload.trending;
       state.trending_href = action.payload.trending_href;
       return { ...state };
     case GET_MORE:

@@ -103,7 +103,7 @@ export const playTrack = (track) => (dispatch) => {
           if (musicPlayer && musicPlayer.isEnded()) {
             clearInterval(tick);
             keepTicking = false;
-            let tracks = store.getState().tracks.search;
+            let tracks = store.getState().tracks.autoplay;
             let next;
             if (store.getState().player.repeat) {
               dispatch(playTrack(store.getState().player.currentlyPlaying));
@@ -125,7 +125,7 @@ export const playTrack = (track) => (dispatch) => {
 };
 
 export const playNext = () => (dispatch) => {
-  let tracks = store.getState().tracks.search;
+  let tracks = store.getState().tracks.autoplay;
   let next;
   if (!store.getState().player.shuffle) {
     next = tracks.indexOf(store.getState().player.currentlyPlaying) + 1;

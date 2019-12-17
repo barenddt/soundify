@@ -55,9 +55,7 @@ class SC {
                 blobs[i] = blob;
                 if (i == parts.length - 1) {
                   let tune = new Blob(blobs);
-
                   let Track = new Audio(URL.createObjectURL(tune));
-
                   Track.setVolume = (vol) => {
                     Track.volume = vol;
                   };
