@@ -1,3 +1,5 @@
+![](https://github.com/barenddt/soundify/workflows/Node.js%20CI/badge.svg)
+
 ## Soundify - [Demo](http://soundify.barend.io)
 
 Soundify is a Soundcloud Player for the Web built using React & React Redux.
